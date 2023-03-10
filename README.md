@@ -1,3 +1,1 @@
-# TIL
-
 ## 📕 Today I Learned.
