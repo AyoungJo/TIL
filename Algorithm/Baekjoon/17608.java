@@ -3,7 +3,7 @@
 import java.util.Scanner;
 import java.util.Stack;
 
-public class B17608_막대기_조아영 {
+public class Main {
 
 	public static void main(String[] args) {
 
