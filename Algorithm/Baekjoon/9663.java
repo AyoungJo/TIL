@@ -2,7 +2,7 @@
 
 import java.util.Scanner;
 
-public class B9663_NQueen_조아영 {
+public class Main {
 
 	static int N;
 	static int[] chess;
