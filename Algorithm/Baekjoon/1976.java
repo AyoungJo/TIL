@@ -1,9 +1,9 @@
 // 1976 - 여행가자
-// 유니온 
+// 유니온 파인드
 
 import java.util.Scanner;
 
-public class B1976_여행가자_조아영 {
+public class Main {
 
 	static int n, m;
 	static int parent[];
