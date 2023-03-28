@@ -60,7 +60,6 @@ public class Member {
 	}
 
 	// 이름 hashcode()값이 같으면 equals()메서드 호출
-
 	@Override
 	public boolean equals(Object obj) {
 		System.out.println("Member의 equals() 호출 - age : " + age);
