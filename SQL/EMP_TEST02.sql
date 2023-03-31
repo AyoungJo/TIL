@@ -30,10 +30,18 @@ SELECT  EMP_ID, MGR_ID, EMP_NAME, DEPT_ID
 FROM EMP
 WHERE MGR_ID IN (6311, 6361, 6351);
 
+SELECT  EMP_ID, MGR_ID, EMP_NAME, DEPT_ID
+FROM EMP
+WHERE MGR_ID = ANY(6311, 6361, 6351);
+
 --7.담당업무가 사무직이거나 경리인 사원의 모든 정보를 검색하세요.
 SELECT *
 FROM EMP
 WHERE JOB IN ('사무직','경리');
+
+SELECT *
+FROM EMP
+WHERE JOB = ANY ('사무직','경리');
 
 --8.emp테이블에서 급여가 3000이상인 모든 부장의 정보를 검색하세요.
 SELECT *
@@ -43,7 +51,14 @@ WHERE SAL>=3000 AND JOB = '부장';
 --9. emp테이블에서 담당업무가 세일즈 이거나 사무직이 아닌 모든 사원의 정보를 검색하세요.
 SELECT *
 FROM EMP
-WHERE JOB LIKE '세일즈' OR JOB NOT LIKE '사무직';
+WHERE JOB = '세일즈' OR JOB <> '사무직'; 
+
+--세일즈인 애들이 나오고, 사무직이 아닌 애들이 모두 나옴
+
+--9. emp테이블에서 담당업무가 세일즈, 사무직이 아닌 모든 사원의 정보를 검색하세요.
+SELECT *
+FROM EMP
+WHERE JOB NOT IN ('세일즈', '사무직');
 
 --10. emp테이블에서 급여가 1500이상 2500이하가  아닌 모든 사원의 정보를 검색하세요.
 SELECT *
