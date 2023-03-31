@@ -90,11 +90,18 @@ WHERE EMP_NAME LIKE '박_수';
 SELECT EMP_ID, EMP_NAME, JOB, NVL(BONUS, 0)
 FROM EMP;
 
+COMMIT;
+
+UPDATE EMP
+SET BONUS =0
+WHERE BONUS IS NULL;
+
+SELECT EMP_NAME, BONUS FROM EMP;
+
 --16. 직업이 ‘직’끝나면서 급여가 2000~3000사이 인 사원의 이름을 ‘장동건’, 급여를 3500으로 변경하세요.
 UPDATE EMP
-SET JOB LIKE '%직' AND EMP_NAME='장동건'
+SET SAL = 3500, EMP_NAME='장동건'
 WHERE JOB LIKE '%직' AND SAL BETWEEN 2000 AND 3000;
-
 SELECT * FROM EMP;
 
 --17. emp_name에 ‘철’자가 들어가면서 직급이 부장인 사원의 정보를 삭제하세요.
