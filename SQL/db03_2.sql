@@ -41,11 +41,25 @@ ON A.USER_SEQ = U.USER_SEQ
 WHERE ACCOUNT_NUMBER IS NOT NULL
 GROUP BY U.USER_SEQ, U.NAME;
 
+select u.user_seq, u.name, a.account_cnt
+from users u join 
+( select user_seq, count(*) account_cnt 
+from account where user_seq is not null 
+group by user_seq  ) a
+on u.user_seq = a.user_seq;	
+
 --7. 위 6번 문제를 조회하되 계좌가 없는 고객도 함께 조회하고 계좌의 수에 0 으로 표시한다.
-SELECT U.USER_SEQ, NAME, COUNT(A.ACCOUNT_NUMBER) AS account_cnt
+SELECT U.USER_SEQ, NAME, NVL(COUNT(A.ACCOUNT_NUMBER),0) AS account_cnt
 FROM ACCOUNT A RIGHT OUTER JOIN USERS U
 ON A.USER_SEQ = U.USER_SEQ
 GROUP BY U.USER_SEQ, U.NAME;
+
+select u.user_seq, u.name, nvl(a.account_cnt, 0) account_cnt
+from users u left outer join
+(select user_seq, count(*) account_cnt 
+from account where user_seq is not null 
+group by user_seq ) a
+on u.user_seq = a.user_seq;
 
 --8. 각 계좌별 잔고 ( balance ) 가 전체 평균 잔고보다 적은 고객의 고객번호 ( user_seq ), 고객명 ( name ) 을 조회한다.
 SELECT DISTINCT A.USER_SEQ, U.NAME
@@ -62,6 +76,14 @@ GROUP BY A.USER_SEQ, U.NAME
 HAVING SUM(BALANCE) <= 
 (SELECT AVG(BALANCE)+5000
 FROM ACCOUNT);
+
+select u.user_seq, u.name
+  from users u
+ where u.user_seq in (  
+	 select user_seq
+		from account
+	   group by user_seq having sum(balance) <= (select avg(balance) + 5000 from account)
+	   );
 
 --10. 계좌 ( account ) 테이블에서 balance 기준 내림차순으로 정렬하되, 상위 5 건만 조회한다.
 SELECT *
