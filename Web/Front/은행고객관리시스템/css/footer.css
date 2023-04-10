@@ -1,0 +1,11 @@
+footer {
+	background-color: #F2FFFF;
+	padding: 10px;
+	margin-top: 10px;
+	border-top: 1px solid gray;
+}
+
+footer ul li {
+	list-style: none;
+	text-align: right;
+}
