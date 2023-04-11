@@ -7,7 +7,104 @@
 <link rel="stylesheet" type="text/css" href="css/common.css">
 <link rel="stylesheet" type="text/css" href="css/navbar.css">
 <link rel="stylesheet" type="text/css" href="css/footer.css">
+<style type="text/css">
+#register {
+	padding: 20px 0;
+}
 
+#register h1 {
+	text-align: center;
+	padding: 5px;
+}
+
+#register form {
+	width: 100%;
+	height: 300px;
+	border: 1px solid gray;
+	padding: 40px;
+}
+
+#register form .form-item {
+	margin-bottom: 10px;
+}
+
+#register form .form-item label {
+	display: inline-block;
+	width: 150px;
+	font-size: 18px;
+}
+
+#register form .form-item input {
+	display: inline-block;
+	width: 250px;
+	font-size: 18px;
+}
+
+#register button {
+	float: right;
+	padding: 5px;
+	width: 100px;
+	font-size: 18px;
+	margin-top: 10px;
+}
+</style>
+<script type="text/javascript">
+	//조건 만족 시 index.html로 이동
+	//만족하지 않은 input 값에 커서 놓이기
+	onload = function() {
+		const btn = document.querySelector("#btn");
+		function btnClick(e) {
+
+			const name = document.querySelector("#name");
+			const email = document.querySelector("#email");
+			const phone = document.querySelector("#phone");
+			const pw = document.querySelector("#password");
+			const pw2 = document.querySelector("#password2");
+
+			if (name.value === '') {
+				alert("이름을 입력하세요.");
+				name.focus();
+				return;
+			}
+			if (email.value === '') {
+				alert("이메일을 입력하세요.");
+				email.focus();
+				return;
+			}
+			if (phone.value === '') {
+				alert("연락처를 입력하세요.");
+				phone.focus();
+				return;
+			}
+			if (pw.value === '') {
+				alert("비밀번호를 입력하세요.");
+				pw.focus();
+				return;
+			}
+			if (pw2.value === '') {
+				alert("비밀번호를 입력하세요.");
+				pw2.focus();
+				return;
+			}
+			if (pw.value !== pw2.value) {
+				alert("비밀번호가 일치하지 않습니다.");
+				pw.value = '';
+				pw2.value = '';
+				pw.focus();
+				return;
+			}
+			if (!email.value.includes("@")) {
+				alert("이메일 형식이 아닙니다.");
+				email.focus();
+				return;
+			}
+
+			alert("입력유무체크 완료");
+		}
+
+		btn.onclick = btnClick;
+	};
+</script>
 </head>
 <body>
 	<div id="container">
@@ -28,7 +125,7 @@
 
 		<div id="register">
 			<h1>Register</h1>
-			<form action="" method="post">
+			<form action="index.html" method="post">
 				<div class="form-item">
 					<label for="name">이름</label> <input type="text" id="name" name="id">
 				</div>
@@ -54,7 +151,7 @@
 				</div>
 
 				<hr>
-				<button>회원 가입</button>
+				<button type="button" id="btn">회원 가입</button>
 			</form>
 
 		</div>
