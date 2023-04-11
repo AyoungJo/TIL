@@ -7,6 +7,77 @@
 <link rel="stylesheet" type="text/css" href="css/common.css">
 <link rel="stylesheet" type="text/css" href="css/navbar.css">
 <link rel="stylesheet" type="text/css" href="css/footer.css">
+<style type="text/css">
+#login {
+	padding: 20px 0;
+}
+
+#login h1 {
+	padding: 5px;
+	text-align: center;;
+}
+
+#login form {
+	height: 200px;
+	border: 1px solid gray;
+	padding: 40px;
+}
+
+#login .form-item {
+	margin-bottom: 10px;
+}
+
+#login .form-item label {
+	display: inline-block;
+	width: 100px;
+	font-size: 18px;
+}
+
+#login .form-item input {
+	display: inline-block;
+	width: 200px;
+	font-size: 18px;
+}
+
+#login button {
+	float: right;
+	width: 80px;
+	font-size: 18px;
+	padding: 5px;
+	margin-top: 10px;
+}
+</style>
+<script type="text/javascript">
+	//조건 만족 해도 해당 페이지에  남아있기 
+	onload = function() {
+		const btn = document.querySelector("button");
+
+		const id = document.querySelector("#id");
+		const pw = document.querySelector("#password");
+		function btnClick(e) {
+			e.preventDefault();
+
+			if (id.value === '') {
+				alert("아이디를 입력하세요.");
+				id.focus();
+				return;
+			}
+			if (pw.value === '') {
+				alert("비밀번호를 입력하세요.");
+				pw.focus();
+				return;
+			}
+
+			alert("입력유무체크 완료");
+			e.preventDefault();
+		}
+
+		console.log(id.value);
+		console.log(pw.value);
+
+		btn.onclick = btnClick;
+	};
+</script>
 </head>
 <body>
 	<div id="container">
@@ -38,7 +109,7 @@
 				</div>
 
 				<hr>
-				<button>로그인</button>
+				<button id="btn">로그인</button>
 			</form>
 		</div>
 
