@@ -7,28 +7,29 @@ import java.util.StringTokenizer;
 
 public class Main {
 
-	public static void main(String[] args) throws NumberFormatException, IOException {
-
+	public static void main(String[] args) throws IOException {
 		BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
-		StringTokenizer token = new StringTokenizer(bf.readLine());
+		StringTokenizer st = new StringTokenizer(bf.readLine(), " ");
 
-		int N = Integer.parseInt(bf.readLine());
-		int M = Integer.parseInt(bf.readLine());
+		int N = Integer.parseInt(st.nextToken()); // 수의 개수
+		int M = Integer.parseInt(st.nextToken()); // 합을 구해야 하는 횟수
 
-		int[] arr = new int[N + 1]; // 수의 개수 배열공간
+		int[] S = new int[N + 1];
 
+		st = new StringTokenizer(bf.readLine());
 		for (int i = 1; i <= N; i++) {
-			arr[i] = arr[i - 1] + Integer.parseInt((token.nextToken()));
+			S[i] = S[i - 1] + Integer.parseInt((st.nextToken()));
 		}
 
-		for (int i = 0; i < M; i++) {
-			token = new StringTokenizer(bf.readLine());
-			int k = Integer.parseInt(token.nextToken());
-			int v = Integer.parseInt(token.nextToken());
+		for (int x = 0; x < M; x++) {
+			st = new StringTokenizer(bf.readLine());
+			int i = Integer.parseInt(st.nextToken());
+			int j = Integer.parseInt(st.nextToken());
 
-			System.out.println(arr[v] - arr[k - 1]);
+			System.out.println(S[j] - S[i - 1]);
 		}
 
 	}
 
 }
+
