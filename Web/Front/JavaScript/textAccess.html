@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+div {
+	width: 300px;
+	height: 200px;
+	border: 1px solid red;
+	overflow: auto;
+}
+</style>
+<script type="text/javascript">
+	onload = function() {
+		let btnEle = document.getElementById("btn");
+		btnEle.onclick = btnCheck;
+	}
+
+	//버튼 클릭 시 호출될 함수
+	function btnCheck(e) {
+		//입력에 값이 있는지 체크하고 있으면 값을 출력, div
+		let inputEle = document.querySelector("[name=input]");
+		if (inputEle.value == "") {
+			alert("입력을 해주세요.");
+			inputEle.focus(); //커서 놓기
+			return false;
+		}
+		//옮기기
+		let outEle = document.querySelector("[name=output]");
+		outEle.value = inputEle.value;
+		
+		//form 양식이 아닌 태그 내부 content에 데이터를 추가할 때
+		//~.innerHTML = "값"(마크업사용)		or 		~.innerText = "값"(문자열로 인식)
+		
+		document.getElementById("result").innerHTML += "<h3>" + inputEle.value + "</h3>";
+		//document.querySelector("#result").innerText = "<h3>" + inputEle.value + "</h3>";
+		
+		//첫번째 text 박스 초기화
+		inputEle.value = "";
+		inputEle.focus();
+		
+		e.preventDefault();
+	}
+</script>
+</head>
+<body>
+	<h2>JavaScript에서 폼 요소 접근하기</h2>
+	<form action="http://www.naver.com" method="get">
+		입력 : <input type="text" name="input"/><br> 출력 : <input
+			type="text" name="output" /><br>
+
+		<!-- form에 button이 있으면 submit 이벤트가 발생하기 때문에 
+		발생하고 싶지 않다면 type="button" 을 정확히 입력해주어야한다. -->
+		<button id="btn">옮기기</button>
+	</form>
+	<hr>
+	<div id="result"></div>
+</body>
+</html>
