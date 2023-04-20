@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+div {
+	width: 400px;
+	height: 50px;
+	border: 5px double blue;
+	font-size: 20px;
+	text-align: center;
+}
+</style>
+<script type="text/javascript">
+	onload = function() {
+		//현재 날짜와 시간
+
+		let time = setInterval(function() {
+			let now = new Date();
+			document.getElementById("result").innerHTML = now.toLocaleString();
+		}, 1000);
+
+		//시계 중지했을 때 호출 될 함수
+		function intervalStop() {
+			clearInterval(time);
+		}
+
+		document.getElementById("btn").onclick = intervalStop;
+	}
+</script>
+</head>
+<body>
+	<h1>시계 움직이기</h1>
+	<div id="result"></div>
+	<input type="button" value="STOP" id="btn">
+
+</body>
+</html>
