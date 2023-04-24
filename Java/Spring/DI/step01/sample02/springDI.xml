@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- 객체 생성 -->
+	<!-- String 한개 받는 생성자 호출 -->
+	<bean class="sample02.Member" id="member">
+		<constructor-arg value="jo"/> 
+	</bean>
+	
+	<!-- 생성자 2개 호출 하라는 뜻이 아닌, 인수 2개 받는 생성자 호출 -->
+	<bean class="sample02.Member" id="member2">
+		<constructor-arg value="jo"/>
+		<constructor-arg value="20" type="int"/> <!-- 2번째 인수타입이 int인 생성자 호출 -->
+	</bean>
+	
+	<!-- 인수 4개 받는 생성자 호출 / 인수 순서가 맞지 않는 경우 index 매핑-->
+	<!-- Member(String id, String pwd, int age, String addr) -->
+	<bean class="sample02.Member" id="member3">
+		<constructor-arg value="jo" index="0"/>
+		<constructor-arg value="20" type="int" index="2"/> <!-- 2번째 인수타입이 int인 생성자 호출 -->
+		<constructor-arg value="서울" index="3"/>
+		<constructor-arg value="1234" index="1"/>
+	</bean>
+	
+	<bean class="sample02.MemberDAO" id="dao"/>
+	<bean class="sample02.MemberService" id="service">
+		<constructor-arg ref="dao" />
+		<constructor-arg ref="member3" />
+	</bean>
+</beans>
