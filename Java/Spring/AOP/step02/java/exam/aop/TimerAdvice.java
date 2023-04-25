@@ -1,9 +1,6 @@
 package exam.aop;
 
 import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.annotation.Around;
-import org.aspectj.lang.annotation.Aspect;
-import org.springframework.stereotype.Service;
 import org.springframework.util.StopWatch;
 
 /**
@@ -12,13 +9,10 @@ import org.springframework.util.StopWatch;
  * 공통의 기능 : around 방식(사전, 사후 처리)
  * 사전 : 현재 시간을 구한다.
  * 사후 : 현재 시간을 구해서 사전의 시간과 gap 출력(사후-사전)
-* */
-
-@Service	//<bean class="exam.aop.TimerAdvice" id="timerAdvice"/>
-@Aspect	//<aop:aspect>
+*
+ */
 public class TimerAdvice {
 	//대상 메소드를 호출하기 전과 후의 동작을 구현하는 메소드
-	@Around("execution(public * exam.service.*Impl.*ello(..))") //<aop:around>
 	public Object around(ProceedingJoinPoint joinPoint) throws Throwable {
 		//사전처리
 		//사전처리를 하는 타겟대상의 메소드 정보 가져오기
