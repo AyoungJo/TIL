@@ -2,26 +2,26 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:aop="http://www.springframework.org/schema/aop"
-	xmlns:context="http://www.springframework.org/schema/context"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
 
-	<!--Java (위의 코드를 아래로 바꾼 것)-->
+	<!-- XML 방식  -->
 	<!-- 생성 + 주입 -->	
-	<!-- <bean class="exam.service.MessageServiceImpl" id="target"/>	
-		 <bean class="exam.aop.TimerAdvice" id="advice"/> -->	
-	<context:component-scan base-package="exam.service, exam.aop"/>	<!-- exam.* --> 
-
-	<!-- <aop:config>
+	<bean class="exam.service.MessageServiceImpl" id="target"/>
+	
+	<!-- TimerAdvice 생성 -->
+	<bean class="exam.aop.TimerAdvice" id="advice"/>
+	
+	<!-- aop 설정 
+		proxy-target-class="true" 옵션은 
+		aop proxy server 생성을 J2SE 방식 or CGLIB방식 결정
+	-->
+	<aop:config>
 		<aop:aspect id="aspect" ref="advice">
-			<aop:around method="around" //TimerAdvice의 around에 해당 태그 대신 @Around 어노테이션 추가
+			<aop:around method="around" 
 			pointcut ="execution(public * exam.service.*Impl.*ello(..))"/>
-			exam.service 패키지 내의 *Impl 클래스들 중 hello 메소드를 대상으로 AOP를 적용하도록 설정
-		</aop:aspect> //TimerAdvice에 해당 태그 대신 @Aspect 어노테이션 추가
-	</aop:config> -->
-	
-		<!-- aop설정 java 기반 -->
-	<aop:aspectj-autoproxy></aop:aspectj-autoproxy>
-	
+			<!-- exam.service 패키지 내의 *Impl 클래스들 중 hello 메소드를 대상으로 AOP를 적용하도록 설정 -->
+		</aop:aspect>
+	</aop:config>
+
 </beans>
