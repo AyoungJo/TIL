@@ -1,75 +1,51 @@
 // 1920 - 수찾기
 // 이진탐색
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.Arrays;
-import java.util.StringTokenizer;
+import java.util.Scanner;
 
 public class Main {
+	static int A[];
 
-	static int BinarySearch(int[] arr1, int target) {
-		int mid = 0; // 중앙값
-		int result = 0;
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
 
-		for (int i = 0; i < arr1.length; i++) {
-			int low = 0;
-			int high = arr1.length - 1;
-
-			while (low <= high) {
-				mid = (low + high) / 2;
-
-				if (arr1[mid] == target) {
-					result = 1;
-					return result;
-				} else if (arr1[mid] > target) {
-					high = mid - 1;
-				} else if (arr1[mid] < target) {
-					low = mid + 1;
-				}
-				result = -1;
-			}
+		int N = sc.nextInt(); 	// 숫자 개수
+		A = new int[N]; 	// X라는 정수가 존재하는지 알아내야하는 숫자들
+		for (int i = 0; i < N; i++) {
+			A[i] = sc.nextInt();
 		}
-		return result;
+
+		Arrays.sort(A); 	// 이진탐색을 위한 숫자 오름차순 정렬
+
+		int X = sc.nextInt(); 	// 찾아야 하는 숫자 갯수
+
+		for (int i = 0; i < X; i++) {
+			int index = sc.nextInt();
+
+			int result = bs(index);
+			System.out.println(result);
+		}
 
 	}
 
-	public static void main(String[] args) throws IOException {
-		BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
-		StringTokenizer st;
+	public static int bs(int index) {
+		int start = 0;
+		int end = A.length - 1;
 
-		int target = 0;
+		while (start <= end) {
 
-		int N = Integer.parseInt(bf.readLine());
-		int arr1[] = new int[N];
+			int mid = (start + end) / 2; 	// 중앙값 구하기
 
-		st = new StringTokenizer(bf.readLine());
-		for (int i = 0; i < N; i++) {
-			arr1[i] = Integer.parseInt(st.nextToken());
-		}
-		int M = Integer.parseInt(bf.readLine());
-
-		st = new StringTokenizer(bf.readLine());
-		int arr2[] = new int[M]; // 탐색값
-		for (int i = 0; i < N; i++) {
-			arr2[i] = Integer.parseInt(st.nextToken());
-		}
-
-		int rs = 0;
-		Arrays.sort(arr1);
-
-		for (int i = 0; i < N; i++) {
-			target = arr2[i];
-			System.out.print(target + " : ");
-			rs = BinarySearch(arr1, target);
-			if (rs == 1) {
-				System.out.println(1);
-
-			} else {
-				System.out.println(0);
+			if (A[mid] > index) { 		// 중앙값>찾아야하는 숫자
+				end = mid - 1; 		// 끝값을 중앙값보다 작게 초기화
+			} else if (A[mid] < index) { 	// 중앙값<찾아야하는 숫자
+				start = mid + 1; 	// 시작값을 중앙값보다 크게 초기화
+			} else if (A[mid] == index) { 	// 숫자 존재
+				return 1; 		// 1 반환
 			}
 		}
+		return 0; // 존재하지 않음
 
 	}
 
