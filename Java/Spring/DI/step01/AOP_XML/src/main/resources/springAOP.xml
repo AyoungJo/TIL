@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
+
+	<!-- XML 방식  -->
+	<!-- 생성 + 주입 -->	
+	<bean class="exam.service.MessageServiceImpl" id="target"/>
+	
+	<!-- TimerAdvice 생성 -->
+	<bean class="exam.aop.TimerAdvice" id="advice"/>
+	
+	<!-- aop 설정 
+		proxy-target-class="true" 옵션은 
+		aop proxy server 생성을 J2SE 방식 or CGLIB방식 결정
+	-->
+	<aop:config>
+		<aop:aspect id="aspect" ref="advice">
+			<aop:around method="around" 
+			pointcut ="execution(public * exam.service.*Impl.*ello(..))"/>
+			<!-- exam.service 패키지 내의 *Impl 클래스들 중 hello 메소드를 대상으로 AOP를 적용하도록 설정 -->
+		</aop:aspect>
+	</aop:config>
+
+</beans>
