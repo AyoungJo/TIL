@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="loan" class="com.itskb.myapp.calculator.LoanInterestCalculator" />
+    <bean id="saving" class="com.itskb.myapp.calculator.SavingInterestCalculator" />
+
+	<!-- 인수가 없는 생성자는 없기 때문에 주입을 반드시 해줘야한다.  -->
+    <bean id="interestCalculatorService" class="com.itskb.myapp.calculator.InterestCalculatorService">
+        <constructor-arg ref="loan" />
+        <property name="savingCalcator" ref="saving" />
+    </bean>
+</beans>
