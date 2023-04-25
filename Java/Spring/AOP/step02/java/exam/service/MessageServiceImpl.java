@@ -1,9 +1,5 @@
 package exam.service;
 
-import org.springframework.stereotype.Service;
-
-//MessageService service = context.getBean("target", MessageService.class);
-@Service("target")	//id="target" 	
 public class MessageServiceImpl implements MessageService {
 
 	@Override
