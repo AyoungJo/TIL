@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
+	<!-- 외부 properties 파일 위치 설정  -->
+	<!-- <bean class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer">
+		<property name="locations">
+			<array>
+				<value>classpath:info.properties</value>
+			</array>
+		</property>
+	</bean> -->
+	
+	<!-- context : Spring에서 필요로 하는 객체들을 종류 별로 모아서 함축적으로 scanning -->
+	<context:property-placeholder location="classpath:info.properties"/>
+
+	<!-- 객체 생성 -->	
+	<bean class="sample04.StudentDAOImpl" id="dao"/>
+	
+	<bean class="sample04.Student" id="student">
+		<property name="name" value="아영"/>
+		<property name="addr" value="서울"/>
+		<property name="no" value="10"/>
+		<property name="phone" value="111-1234"/>
+	</bean>
+	
+	<bean class="sample04.Student" id="student2" p:addr="제주도" 
+						p:name="예삐" p:no="20" p:phone="222-2589">
+	</bean>
+	
+	<bean class="sample04.Student" id="student3" p:no="${no}" p:name="${name}">
+		<property name="addr" value="${addr}"/>
+		<property name="phone" value="${phone}"/>	
+	</bean>
+	
+	<bean class="sample04.StudentServiceImpl" id="service">
+		<property name="studentDAO" ref="dao"/>
+	</bean>
+	
+	<bean class="sample04.StudentController" id="controller"
+		p:service-ref="service" p:student-ref="student3">
+	</bean>
+	
+	
+</beans>
