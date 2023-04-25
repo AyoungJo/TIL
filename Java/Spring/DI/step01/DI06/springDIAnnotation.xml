@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
+	<!-- 직접 bean으로 등록해야 하는 것을 태그 하나만 설정하면 내부에서 알아서 생성 -->
+	<context:annotation-config/>
+	
+	<!-- 객체 생성 -->
+	<!-- 동일한 타입의 빈이 여러개 일 때 property명과 bean class id 지정이 중요 -->
+	<!-- 빈으로 등록하는 아이디의 이름과 동일하지 않을 때 @Qualifier 어노테이션 사용 -->
+	<bean class="sample06.EmpDTO" id="emp"/>
+	<bean class="sample06.EmpDTO" id="emp2">
+		<property name="empno" value="50"></property>
+	</bean>
+	
+	<bean class="sample06.EmpService" id="service"/>
+	
+	<bean class="sample06.EmpController" id="controller"/>
+</beans>
