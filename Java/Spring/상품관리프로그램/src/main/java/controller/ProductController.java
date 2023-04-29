@@ -1,9 +1,11 @@
 package web.mvc.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import lombok.RequiredArgsConstructor;
@@ -12,18 +14,28 @@ import web.mvc.exception.MyErrorException;
 import web.mvc.service.ProductService;
 
 @Controller
+@RequiredArgsConstructor //final 필드 or @NonNull을 선언한 필드를 기반으로 생성자 생성
 public class ProductController {
 	
-	@Autowired	
-	private ProductService productService;
+	/*@Autowired	
+	//byType으로 주입 (ProductService 타입 1개) -> 주입이 안될
+	private ProductService productService;*/
 	
+	//↑ @Autowired 사용하지 않고 
+	//↓ lombok에 있는 @RequiredArgsConstructor 를 사용하고 
+	//final 필드 선언하여 주입
+	
+	//final - 값 변경 불가, 반드시 초기화 필수(생성자를 이용) -> 반드시 주입
+	private final ProductService service;
+
 	@RequestMapping("/")
 	public String controller(Model model) {
 
-		model.addAttribute("productList", productService.select());			
+		List<ProductDTO> list = service.select();
+		model.addAttribute("productList", list);			
 		return "productList";	//WEB-INF/views/productList.jsp
 	}
-	
+
 	@RequestMapping("/insertForm")
 	public String insertForm() {		
 		
@@ -33,7 +45,7 @@ public class ProductController {
 	@RequestMapping("/insert")
 	public String insert(ProductDTO dto) throws MyErrorException {		
 		
-		productService.insert(dto);		
+		service.insert(dto);		
 		
 		return "redirect:/";
 	}
@@ -41,26 +53,40 @@ public class ProductController {
 	@RequestMapping("/read")
 	public String read(String code, Model model) throws MyErrorException{	
 		
-		ProductDTO dto =  productService.selectByCode(code);
+		ProductDTO dto =  service.selectByCode(code);
 		model.addAttribute("product", dto);	
 		
 		return "read";
 	}
 	
-	@RequestMapping("/delete")
+	/**
+	 * 삭제하기 1
+	 */
+	/*@RequestMapping("/delete")
 	public String delete(String code, Model model) throws MyErrorException {		
 		
-		productService.delete(code);
+		service.delete(code);
+		
+		return "redirect:/";
+	}*/
+	
+	/**
+	 * 삭제하기 2
+	 */
+	@RequestMapping("/delete/{code}")
+	public String delete(@PathVariable String code) throws MyErrorException {		
+		
+		service.delete(code);
 		
 		return "redirect:/";
 	}
 	
-	@ExceptionHandler(value = {MyErrorException.class})
+	@ExceptionHandler(MyErrorException.class)
 	public String error(Exception e, Model model) {
 		
 		model.addAttribute("errMessage", e.getMessage());
 		
 		return "error";
 	}
-	
+
 }
