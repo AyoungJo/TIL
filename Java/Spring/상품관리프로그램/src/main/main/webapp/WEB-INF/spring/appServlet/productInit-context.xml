@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+<!-- 주입해야함  -->
+  <bean class="web.mvc.dto.ProductDTO" id="p1" p:code="A01" p:name="새우깡" p:price="2500" p:detail="짜고 고소하다."/>
+  <bean class="web.mvc.dto.ProductDTO" id="p2" p:code="A02" p:name="감자깡" p:price="2000" p:detail="감자맛"/>
+  <bean class="web.mvc.dto.ProductDTO" id="p3" p:code="A03" p:name="고구마깡" p:price="4000" p:detail="고구마 맛"/>
+  <bean class="web.mvc.dto.ProductDTO" id="p4" p:code="A04" p:name="허니버터칩" p:price="5500" p:detail="달고 고소한맛"/>
+  <bean class="web.mvc.dto.ProductDTO" id="p5" p:code="A05" p:name="콘칩" p:price="3000" p:detail="고소한 맛"/>
+</beans>
