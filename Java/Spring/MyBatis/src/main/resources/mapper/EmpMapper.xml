@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="empMapper">
+
+	<!-- 사원 전체 검색  -->
+	<select id="selectName" resultType="string">
+		select ename from emp
+	</select>
+	
+	<!-- 등록 
+	parameterType="db.dto.EmpDTO" 
+	SqlMapConfig.xml에 empDTO 별칭 만들어서 사용
+	-->
+	<insert id="insert" parameterType="empDTO">
+		<!-- insert into emp(empno, ename, job, sal, hiredate) 
+		values (?, ?, ?, ?, sysdate)
+			#{dto 안의 property명}
+			
+			Null값
+		 -->
+		
+		insert into emp(empno, ename, job, sal, hiredate) 
+		values (#{empno}, #{empName}, #{job}, #{sal}, sysdate) 
+	</insert>
+	
+	<!-- 사원번호에 해당하는 레코드 삭제 -->
+	<delete id="delete" parameterType="int">
+		delete from emp where empno = #{_parameter}
+	</delete>
+	
+	<!-- sal 적게 받는 사원 검색 : < -->
+	<select id="selectLessthanSal" parameterType="int" resultType="empDTO">
+		select empno, ename, job, sal, hiredate
+		from emp
+		where sal &lt; #{_parameter}
+		<!-- < : &lt; less than  -->
+	</select>
+	
+	<!-- Min ~ Max 검색 : between A and B  -->
+	<select id="selectMinMax" parameterType="map" resultType="empDTO">
+		select empno, ename, job, sal, hiredate
+		from emp
+		where sal #{min} and #{max}
+	</select>
+	
+	<!-- 정렬대상컬럼을 인수로 받아 정렬하기 -->
+	<select id="selectOrder" parameterType="string" resultType="empDTO">
+		select empno, ename as empName, job, sal, hiredate
+		from emp
+		order by ${_parameter}
+	</select>
+
+
+</mapper>
