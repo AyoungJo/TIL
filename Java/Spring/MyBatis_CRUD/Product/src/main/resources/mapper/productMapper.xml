@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="productMapper">
+
+	<!-- 상품 등록 -->
+	<insert id="insert" parameterType="productDTO">
+		insert into productlist(code, name, qty, price, detail)
+		values (#{code}, #{name}, #{qty}, #{price}, #{detail})
+	</insert>
+	
+	<!-- 상품 전체 검색 -->
+	<select id="selectAll" resultType="string">
+		select code, name, qty, price, detail from productlist
+	</select>
+	
+	<!-- code 조건에 맞는 상품 검색 -->
+	<select id="selectOne" parameterType="string" resultType="productDTO" >	
+		select code, name, qty, price, detail
+		from productlist where code like #{code}
+	</select>
+	
+	<!-- 이름 오름차순 정렬  -->
+	<select id="selectOrder" parameterType="string" resultType="productDTO">
+		select code, name, qty, price, detail
+		from productlist
+		order by ${_parameter}
+	</select>
+	
+	<!-- 상품코드에 해당하는 상품 정보 수정 -->
+	<update id="update" parameterType="productDTO" >
+		update productlist set 
+			name = #{name},
+			qty = #{qty},
+			price = #{price},
+			detail = #{detail}
+		where code = #{code}
+	</update>
+	
+	<!-- 상품코드에 해당하는 상품 삭제 -->
+	<delete id="delete" parameterType="string">
+		delete from productlist
+		where code = #{code}
+	</delete>
+	
+	<!-- 등록된 상품 총 개수 -->
+	<select id="selectBySum" parameterType="string" resultType="int">
+		select sum(${_parameter}) from productlist;
+	</select>	
+
+</mapper>
