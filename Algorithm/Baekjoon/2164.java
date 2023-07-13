@@ -13,18 +13,18 @@ public class Main {
 		Scanner sc = new Scanner(System.in);
 		int n = sc.nextInt();
 		
-		for(int i=0; i<n; i++) {
-			queue.add(i+1);
+		for(int i=1; i<=n; i++) {
+			queue.add(i);
 		}
 		System.out.println();
 		
 		while(queue.size() > 1) {
-			queue.poll();
-//			int second = queue.remove();
-			queue.offer(queue.poll());	
+			queue.remove();
+			int next = queue.remove();
+			queue.add(next);	
 		}
 		
-		System.out.println(queue.poll());
+		System.out.println(queue.peek());
 
 	}
 
