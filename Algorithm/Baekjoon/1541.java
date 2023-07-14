@@ -32,7 +32,7 @@ public class Main {
 
 	private static int operator(String number) {
 		int sum = 0;
-		String temp[] = number.split("[+]");
+		String temp[] = number.split("\\+");
 
 		for (int i = 0; i < temp.length; i++) {
 			sum += Integer.parseInt(temp[i]);
